@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import TodoList from './components/TodoList'
-import TodoInput from './components/TodoInput'
+import TodoInput from './components/TodoInput';
+import Filter from './components/Filter';
 
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   const addTodo = (text) => {
     const newTodo = {
@@ -24,6 +26,11 @@ function App() {
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
+
+  const filterTodos = todos.filter(todo => {
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'active') return !todo.completed;
+  });
 
   return (
     <div className="max-w-2xl mx-auto p-8">
